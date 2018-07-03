@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:/META-INF/cache/myLife_memcached_config.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean name="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+        <!-- XMemcachedClientBuilder have two arguments.First is server list,and second is weights array. -->
+        <constructor-arg>
+            <list>
+                <bean class="java.net.InetSocketAddress">
+                    <constructor-arg>
+                        <value>${memcached.server1.url}</value>
+                    </constructor-arg>
+                    <constructor-arg>
+                        <value>${memcached.server1.port}</value>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <value>${memcached.server1.weights}</value>
+            </list>
+        </constructor-arg>
+        <property name="connectionPoolSize" value="${memcached.connectionPoolSize}"></property>
+        <property name="commandFactory">
+            <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"></bean>
+        </property>
+        <property name="sessionLocator">
+            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"></bean>
+        </property>
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+    </bean>
+    <!-- Use factory bean to build memcached client -->
+    <bean name="memcachedClient" factory-bean="memcachedClientBuilder"
+          factory-method="build" destroy-method="shutdown"/>
+
+</beans>

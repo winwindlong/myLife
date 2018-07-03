@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+${base}
+username: <input type="text" id="username"><br><br>
+password: <input type="password" id="password"><br><br>
+<button id="loginbtn">登录</button>
+</body>
+<script src="${base}/assets/js/jquery-1.8.1.min.js"></script>
+<script>var ctx = "${base}"; </script>
+<script type="text/javascript">
+    $('#loginbtn').click(function () {
+        var param = {
+            username: $("#username").val(),
+            password: $("#password").val()
+        };
+        $.ajax({
+            type: "post",
+            url: ctx + "/checkLogin.json",
+            data: param,
+            dataType: "json",
+            success: function (data) {
+                if (data.success == false) {
+                    alert(data.errorMsg);
+                } else {
+                    //登录成功
+                    window.location.href = ctx + "/loginsuccess.html";
+                }
+            },
+            error: function (data) {
+                alert("调用失败....");
+            }
+        });
+    });
+</script>
+</html>

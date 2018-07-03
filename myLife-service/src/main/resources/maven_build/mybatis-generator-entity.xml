@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <properties resource="${mybatisGeneratorDbConfigFile}"/>
+    <context id="admin.sys" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example"/>
+            <property name="replaceString" value="Condition"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+
+        <!-- 取消注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- 配置连接数据信息 -->
+        <jdbcConnection driverClass="${mvn.jdbc.driver}" connectionURL="${mvn.jdbc.url}" userId="${mvn.jdbc.username}" password="${mvn.jdbc.password}"/>
+        <!-- 配置自动生成的Model的保存路径与其它参数 -->
+        <javaModelGenerator targetPackage="${mybatisGeneratorPackagePath}" targetProject="${mybatisGeneratorJavaFileDir}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+        </javaModelGenerator>
+        <!-- 配置自动生成的Mappper.xml映射的保存路径与其它参数 -->
+        <sqlMapGenerator targetPackage="${mybatisGeneratorPackagePath}" targetProject="${mybatisGeneratorResourcesFileDir}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 配置自动生成的Mappper.java接口的保存路径与其它参数 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${mybatisGeneratorPackagePath}" targetProject="${mybatisGeneratorJavaFileDir}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="u_user" domainObjectName="user.entity.UUser"/>
+        <table tableName="u_user_role" domainObjectName="user.entity.UUserRole"/>
+        <table tableName="u_role_permission" domainObjectName="user.entity.URolePermission"/>
+        <table tableName="u_role" domainObjectName="user.entity.URole"/>
+        <table tableName="u_permission" domainObjectName="user.entity.UPermission"/>
+
+    </context>
+</generatorConfiguration>

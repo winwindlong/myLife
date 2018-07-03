@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="myLife-web:war">
+    <output-path>$PROJECT_DIR$/myLife-web/target</output-path>
+    <root id="archive" name="myLife-web-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="myLife-web:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,44 @@
+## default config
+## default config
+server:
+  port: 8086
+  session:
+    timeout: 30
+  context-path: /
+  undertow:
+    accesslog:
+      enabled: true
+      dir: /data/log/dream/myLife-web-log/
+      prefix: myLife-web-log.
+
+spring:
+  profiles:
+    active: dev
+  velocity:
+      charset: UTF-8
+      resource-loader-path: classpath:/views/
+      suffix: .html
+      content-type: text/html
+      properties:
+        velocimacro.library.autoreload: true
+        resource.loader.cache: true
+        input.encoding: utf-8
+        output.encoding: utf-8
+  mvc:
+    view:
+      suffix: .html
+
+logging:
+  level:
+    root: info
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/mylife
+    username: root
+    password: 123456
+
+logging:
+  file: d:/log/myLife-web

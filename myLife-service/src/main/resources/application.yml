@@ -1,0 +1,40 @@
+## default config
+spring:
+  profiles:
+    active: dev
+  aop:
+    auto: true
+    proxy-target-class: true
+  datasource:
+    name: dataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    type: org.apache.tomcat.jdbc.pool.DataSource
+
+mybatis:
+  typeAliasesPackage: com.dream.myLife
+  mapperLocations: classpath:com/dream/myLife/**/*Mapper.xml
+
+dubbo:
+  application:
+    name: myLife-Service
+  protocol:
+    port: 10881
+  registry1:
+    address: zookeeper://zkserver1:2181;zookeeper://zkserver2:2181
+  file: /data/log/myLife/myLife-service-log/myLife-service-dubbo1.cache
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/mylife
+    username: root
+    password: 123456
+
+logging:
+  file: c:/log/superp2b-Service
+
+framework:
+  dubbo:
+    registry1:
+      address: zookeeper://127.0.0.1:2181
+      file: d:/log/myLife-service-dubbo1.cache

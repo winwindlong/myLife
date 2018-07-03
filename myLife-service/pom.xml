@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>myLife</artifactId>
+        <groupId>com.dream</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>myLife-service</artifactId>
+
+
+    <properties>
+        <!-- 实体生成配置文件 -->
+        <mybatisGeneratorConfigFile>
+            ${basedir}/src/main/resources/maven_build/mybatis-generator-entity.xml
+        </mybatisGeneratorConfigFile>
+        <!-- 数据库配置 -->
+        <mybatisGeneratorDbConfigFile>maven_build/mybatis-generator-entity.properties</mybatisGeneratorDbConfigFile>
+        <!-- 包名 -->
+        <mybatisGeneratorPackagePath>com.dream.myLife</mybatisGeneratorPackagePath>
+        <!-- java代码目录 -->
+        <mybatisGeneratorJavaFileDir>../myLife-service-api/src/main/java</mybatisGeneratorJavaFileDir>
+        <!-- 资源文件目录 -->
+        <mybatisGeneratorResourcesFileDir>${basedir}/src/main/resources</mybatisGeneratorResourcesFileDir>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.dream</groupId>
+            <artifactId>myLife-service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.4.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId> mysql</groupId>
+                        <artifactId> mysql-connector-java</artifactId>
+                        <version>5.1.39</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.3.5</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--允许移动生成的文件 -->
+                    <verbose>true</verbose>
+                    <!-- 是否覆盖 -->
+                    <overwrite>true</overwrite>
+                    <!-- 自动生成的配置 -->
+                    <configurationFile>
+                        ${mybatisGeneratorConfigFile}</configurationFile>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
